@@ -1,5 +1,4 @@
 Activate virtual environment:
-
 `source wedding-tartan_env/bin/activate`
 
 Run:
@@ -7,3 +6,6 @@ Run:
 
 Stop virtual environment:
 `deactivate`
+
+Getting drawbot working is really hard! I don't know why!
+Reinstall it with: `pip3 install git+https://github.com/typemytype/drawbot`
