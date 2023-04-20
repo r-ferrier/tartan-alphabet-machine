@@ -1,0 +1,9 @@
+Activate virtual environment:
+
+`source wedding-tartan_env/bin/activate`
+
+Run:
+`python3 main.py`
+
+Stop virtual environment:
+`deactivate`
