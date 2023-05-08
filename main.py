@@ -1,5 +1,5 @@
 from drawBot import *
-from tartan.tartan_with_bleed import draw_tartan
+from tartan.tartan import draw_tartan
 import csv
 
 #!/usr/bin/env python
