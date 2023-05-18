@@ -1,5 +1,5 @@
 from drawBot import *
-from tartan.tartan import draw_tartan
+from tartan.tartan_repeat import draw_tartan
 import csv
 
 #!/usr/bin/env python
@@ -10,7 +10,7 @@ def main():
     # name must be formatted as 'firstname familyname familyname' or 'firstname familyname'
     names = []
 
-    with open('assets/guests.csv') as csv_file:
+    with open('assets/handfasting-tartan.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             # names.append(({'name': row[1], 'initials': 'RF'}, f'family_colors_{row[0]}'))
