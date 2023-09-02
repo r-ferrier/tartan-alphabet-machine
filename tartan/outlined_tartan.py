@@ -6,8 +6,7 @@ widths = [1,2,3,4,5,9,3]
 canvas_unit = 1000
 max_width = 64
 margin = 100
-label_gap = 10
-letter_gap = 5
+label_gap = 8
 fontSize = 32
 
 def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name_info):
@@ -54,7 +53,7 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name_i
 
   
   def draw_square(stripes):
-    fontName = drawbot.installFont('./assets/Cormorant-Medium.ttf')
+    fontName = drawbot.installFont('./assets/VT323-Regular.ttf')
     drawbot.stroke(0,0,0)
     drawbot.fill(1,1,1,0)
     drawbot.font(fontName, fontSize)
