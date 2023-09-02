@@ -11,8 +11,17 @@ colors = {
   'light_green': [0.8, 0.88, 0.47],
   'dark_green': [0.4, 0.69, 0.43],
   'white': [1,1,1],
-  'deep_orange': [1,0.59,0.42]
+  'deep_orange': [1,0.59,0.42],
+  'deep_green': [0.4, 0.5, 0.43],
+  'muted_green': [0.62, 0.75, 0.48],
+  'copper': [	0.89, 0.51, 0.31],
   }
+
+park_colors = {
+  'deep_green': [0.4, 0.5, 0.43],
+  'muted_green': [0.62, 0.75, 0.48],
+  'copper': [	0.89, 0.51, 0.31],
+}
 
 def family_colors_1(name):
   result = []
@@ -97,6 +106,18 @@ def family_colors_6(name):
   
   # simple version
   family_colors = [colors['pale_blue'], colors['sunshine_yellow'], colors['pale_pink'],colors['dark_green'], colors['hot_pink'], colors['light_green']] 
+ 
+  for x in name[:3]:
+    colors_index = (ord(x)-97) % len(family_colors)
+    result.append(family_colors.pop(colors_index)) 
+    
+  return result
+
+def family_colors_7(name):
+  result = []
+  
+  # simple version
+  family_colors = [ park_colors['deep_green'], park_colors['muted_green'],park_colors['copper']] 
  
   for x in name[:3]:
     colors_index = (ord(x)-97) % len(family_colors)

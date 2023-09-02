@@ -1,6 +1,6 @@
 import functools 
 from drawBot import *
-from tartan.colors import colors, family_colors_1, family_colors_2, family_colors_3, family_colors_5, family_colors_6
+from tartan.colors import colors, family_colors_1, family_colors_2, family_colors_3, family_colors_5, family_colors_6, family_colors_7
 
 widths = [1,2,3,4,5,9,3]
 canvas_unit = 1000
@@ -30,11 +30,14 @@ def draw_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name_info):
       drawbot.fill(*character['color'])
       drawbot.rect(((width_so_far - character['width'])),0,character['width'],canvas_unit * 3)
       drawbot.rect(((width_so_far - character['width'])) + canvas_unit * 2,0,character['width'],canvas_unit * 3)
+    # horizontal
       drawbot.rect(0, ((width_so_far - character['width'])),canvas_unit * 3,character['width'])
+    # horizontal
       drawbot.rect(0, ((width_so_far - character['width']))+canvas_unit * 2,canvas_unit * 3,character['width'])
       
       drawbot.fill(*reversed_stripes[index]['color'])
       drawbot.rect(((reversed_width_so_far - reversed_stripes[index]['width'])) + canvas_unit, 0, reversed_stripes[index]['width'], canvas_unit * 3)
+    # horizontal
       drawbot.rect(0, ((reversed_width_so_far - reversed_stripes[index]['width'])) + canvas_unit,canvas_unit * 3,reversed_stripes[index]['width'])
       
   drawbot.newPage(3 * canvas_unit, 3 * canvas_unit)

@@ -1,6 +1,6 @@
 import functools 
 from drawBot import *
-from tartan.colors import colors, family_colors_1, family_colors_2, family_colors_3, family_colors_5, family_colors_6
+from tartan.colors import colors, family_colors_1, family_colors_2, family_colors_3, family_colors_5, family_colors_6, family_colors_7
 
 napkin_width = 45
 bleed = 2
