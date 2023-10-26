@@ -20,7 +20,7 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, 
         names_for_square = name_as_stripes + list(reversed(name_as_stripes)) + name_as_stripes
       case _:
         names_for_square = name_as_stripes
-    return names_for_square
+    return get_combined_stripes(names_for_square)
 
   def combine_stripes(stripe, next_stripe):
       new_stripes = {'stripes': [stripe, next_stripe], 'is_combined': False}
