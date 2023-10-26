@@ -124,3 +124,13 @@ def family_colors_7(name):
     result.append(family_colors.pop(colors_index)) 
     
   return result
+
+def outlined_colors(name):
+  result = []
+  family_colors = [ 'a', 'b', 'c'] 
+ 
+  for x in name[:3]:
+    colors_index = (ord(x)-97) % len(family_colors)
+    result.append(family_colors.pop(colors_index))
+    
+  return result
