@@ -1,8 +1,12 @@
 Activate virtual environment:
-`source wedding-tartan_env/bin/activate`
+`source tartan_env/bin/activate`
 
 Run:
-`python3 main.py`
+`python3 main.py -n <name> -f <filename> -s <size>`
+
+-n (optional): Person's name, in title case
+-f (optional): csv filename without extension, placed in the names folder
+-s (defaults to A4): size of paper - can be A4, A5 or A3
 
 Stop virtual environment:
 `deactivate`
