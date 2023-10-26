@@ -28,6 +28,8 @@ def main():
       names = [arg]
     elif opt in ("-c"):
       complexity = int(arg)
+  
+  print('\x1b[0;32;40m'+f'Creating tartan for {names} \nSize: {paper_size}\nPattern repeats: {complexity}'+'\x1b[0m')
 
   if len(names)>0:
     file_name = names[0]
@@ -50,6 +52,7 @@ def make_outlined_drawing(names,paper_size,complexity,file_name):
   db.endDrawing()
   path = f'./outputs/{to_snake_case(file_name)}_{paper_size}.pdf'
   db.saveImage(path)
+  print('\x1b[0;35;40m'+f'File saved to: {path}'+'\x1b[0m')
 
 # def draw_colourful_tartan():
     # name must be formatted as 'firstname familyname familyname' or 'firstname familyname'
