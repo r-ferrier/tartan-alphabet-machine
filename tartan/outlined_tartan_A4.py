@@ -2,7 +2,7 @@ import functools
 from drawBot import *
 from tartan.colors import outlined_colors
 from tartan.tartan_info.letters_key_A4 import draw_letters_key
-from tartan.constants import canvas_width_A4, canvas_height_A4, margin_A4, y_tartan_offset_A4, label_gap_A4, fontSize_A4
+from tartan.constants import canvas_width_A4, canvas_height_A4, margin_A4, y_tartan_offset_A4, label_gap_A4, fontSize_A4, title_offset_A4
 from tartan.helpers import name_without_spaces, get_unique_colors
 from unidecode import unidecode
 
@@ -98,7 +98,7 @@ def draw_outlined_tartan_A4(drawbot: drawBotDrawingTools.DrawBotDrawingTool, nam
   def draw_name(name):
     drawbot.strokeWidth(0)
     drawbot.fill(0,0,0,1)
-    drawbot.text(name,(margin_A4,y_tartan_offset_A4))
+    drawbot.text(name,(margin_A4,(y_tartan_offset_A4 - title_offset_A4)))
     drawbot.strokeWidth(1)
 
 

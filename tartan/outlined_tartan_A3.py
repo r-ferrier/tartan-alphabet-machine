@@ -2,7 +2,7 @@ import functools
 from drawBot import *
 from tartan.colors import outlined_colors
 from tartan.tartan_info.letters_key_A3 import draw_letters_key
-from tartan.constants import canvas_width_A3, canvas_height_A3, margin_A3, y_tartan_offset_A3, label_gap_A3, fontSize_A3
+from tartan.constants import canvas_width_A3, canvas_height_A3, margin_A3, y_tartan_offset_A3, label_gap_A3, fontSize_A3, title_offset_A3
 from tartan.helpers import name_without_spaces, get_unique_colors
 from unidecode import unidecode
 
@@ -98,7 +98,7 @@ def draw_outlined_tartan_A3(drawbot: drawBotDrawingTools.DrawBotDrawingTool, nam
   def draw_name(name):
     drawbot.strokeWidth(0)
     drawbot.fill(0,0,0,1)
-    drawbot.text(name,(margin_A3,y_tartan_offset_A3))
+    drawbot.text(name,(margin_A3,(y_tartan_offset_A3 - title_offset_A3)))
     drawbot.strokeWidth(1)
 
 
@@ -115,7 +115,7 @@ def draw_outlined_tartan_A3(drawbot: drawBotDrawingTools.DrawBotDrawingTool, nam
   name_as_stripes = [
     {
       'color': outlined_colors(name_for_colors)[(ord(x)-97) % len(outlined_colors(name_for_colors))], 
-      'width': name_widths[index] * ((canvas_width_A3 / 2) / name_width),
+      'width': name_widths[index] * ((canvas_width_A3 / 3) / name_width),
       'letters': [x],
       'is_end_of_name': False
     } for index, x in enumerate(name_for_tartan)
@@ -124,7 +124,8 @@ def draw_outlined_tartan_A3(drawbot: drawBotDrawingTools.DrawBotDrawingTool, nam
   draw_square(
     get_combined_stripes(
       name_as_stripes + 
-      list(reversed(name_without_letters(name_as_stripes))) 
+      list(reversed(name_without_letters(name_as_stripes))) +
+      name_as_stripes
     )
   )
 

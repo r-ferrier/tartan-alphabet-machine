@@ -20,6 +20,7 @@ canvas_width_A3 = 2970 - margin_A3 * 2
 canvas_height_A3 = 4200 - margin_A3 * 2
 
 fontSize_A3 = 120
+title_offset_A3 = 40
 y_tartan_offset_A3 = canvas_height_A3 - canvas_width_A3
 label_gap_A3 = 10
 colour_signifier_width_A3 = 100
@@ -33,6 +34,7 @@ canvas_width_A4 = 2100 - margin_A4 * 2
 canvas_height_A4 = 2970 - margin_A4 * 2
 
 fontSize_A4 = 88
+title_offset_A4 = 20
 y_tartan_offset_A4 = canvas_height_A4 - canvas_width_A4
 label_gap_A4 = 8
 colour_signifier_width_A4 = 75
@@ -46,6 +48,7 @@ canvas_width_A5 = 1485 - margin_A5 * 2
 canvas_height_A5 = 2100 - margin_A5 * 2
 
 fontSize_A5 = 64
+title_offset_A5 = 0
 y_tartan_offset_A5 = canvas_height_A5 - canvas_width_A5
 label_gap_A5 = 6
 colour_signifier_width_A5 = 50

@@ -2,18 +2,6 @@ from tartan.constants import colour_signifier_width_A5,fontSize_A5,canvas_width_
 from tartan.helpers import get_unique_colors, normalize_width
 from unidecode import unidecode
 
-# def get_characters_for_width(stripes):
-#   stripe_widths = list(set([x['width'] for x in stripes]))
-#   characters = {str(x): [] for x in stripe_widths}
-
-#   for stripe in stripes:
-#     stripe['letters']
-#     characters[str(stripe['width'])] += stripe['letters']
-
-#   print(stripes)
-
-#   return characters
-
 def get_characters_for_width(drawbot, name):
   unique_name = unidecode(name.lower().replace(' ',''))
   new_widths = {}
