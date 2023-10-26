@@ -54,7 +54,7 @@ def make_outlined_drawing(names,paper_size,complexity,file_name):
   for (name) in names:
     draw_outlined_tartan(db,name,complexity,outlined_args[paper_size])
   db.endDrawing()
-  path = f'./outputs/{to_snake_case(file_name)}_{paper_size}.pdf'
+  path = f'./outputs/{to_snake_case(file_name)}_{paper_size}_C{complexity}.pdf'
   db.saveImage(path)
   print('\x1b[0;35;40m'+f'File saved to: {path}'+'\x1b[0m')
 
