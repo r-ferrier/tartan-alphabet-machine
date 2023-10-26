@@ -134,3 +134,35 @@ def outlined_colors(name):
     result.append(family_colors.pop(colors_index))
     
   return result
+
+def ensure_3_colors(name_for_colors):
+  name = [outlined_colors(name_for_colors)[(ord(x)-97) % len(outlined_colors(name_for_colors))] for x in name_for_colors]
+
+  if(len(list(set(name))) < 3 ):
+    replace_char_at_index(name,name_for_colors,0)
+  
+  return name
+
+def replace_char_at_index(name,name_for_colors,index):
+  missing_color = '' 
+  char_positions = []
+
+  for x in [ 'a', 'b', 'c']:
+    if (x not in list(set(name))):
+      missing_color = x
+
+  for i, x in enumerate(name_for_colors):
+    if(x == name_for_colors[index]):
+      char_positions.append(i)
+
+  for x in char_positions:
+    name[x] = missing_color
+  
+  if(len(list(set(name))) < 3 ):
+    if(index == len(name)-1):
+      return name
+    else:
+      print(name)
+      replace_char_at_index(name,name_for_colors,index+1)
+
+  return name

@@ -28,6 +28,10 @@ def main():
       names = [arg]
     elif opt in ("-c"):
       complexity = int(arg)
+
+  if len(list(set(names[0]))) < 3:
+    print('\x1b[0;33;40m'+f'Not enough unique characters to create a tartan for this name'+'\x1b[0m')
+    sys.exit()
   
   print('\x1b[0;32;40m'+f'Creating tartan for {names} \nSize: {paper_size}\nPattern repeats: {complexity}'+'\x1b[0m')
 

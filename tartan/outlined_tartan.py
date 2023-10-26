@@ -1,6 +1,6 @@
 import functools 
 from drawBot import *
-from tartan.colors import outlined_colors
+from tartan.colors import ensure_3_colors, outlined_colors
 from tartan.tartan_info.letters_key import draw_letters_key
 from tartan.helpers import name_without_spaces, get_unique_colors
 from unidecode import unidecode
@@ -118,19 +118,20 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, 
   drawbot.font(fontName, args["font_size"])
   drawbot.strokeWidth(1)
 
-  name_for_colors = name.lower().split(" ")[-1]
   name_for_tartan = name_without_spaces(name.lower())
   name_widths = get_name_widths(name_without_spaces(name.lower()))
   name_width = functools.reduce(lambda a, b: a + b, name_widths)
+  name_with_3_colors = ensure_3_colors(name_for_tartan)
 
   name_as_stripes = [
     {
-      'color': outlined_colors(name_for_colors)[(ord(x)-97) % len(outlined_colors(name_for_colors))], 
+      'color': name_with_3_colors[index],
       'width': name_widths[index] * ((canvas_width / complexity) / name_width),
       'letters': [x],
       'is_end_of_name': False
     } for index, x in enumerate(name_for_tartan)
   ]
+
 
   names_for_square = get_names_for_square(complexity,name_as_stripes)
 
