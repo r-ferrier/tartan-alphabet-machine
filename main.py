@@ -2,9 +2,8 @@ from drawBot import *
 import sys, getopt
 from tartan.helpers import to_snake_case
 from tartan.tartan import draw_tartan
-from tartan.outlined_tartan_A3 import draw_outlined_tartan_A3
-from tartan.outlined_tartan_A4 import draw_outlined_tartan_A4
-from tartan.outlined_tartan_A5 import draw_outlined_tartan_A5
+from tartan.constants import outlined_args
+from tartan.outlined_tartan import draw_outlined_tartan
 import csv
 
 #!/usr/bin/env python
@@ -12,13 +11,14 @@ def main():
   file_name = ""
   paper_size = 'A4'
   names = []
+  complexity = 1
 
   argv = sys.argv[1:] 
-  opts, args = getopt.getopt(argv,"hn:f:s:")
+  opts, args = getopt.getopt(argv,"hn:f:s:c:")
 
   for opt, arg in opts:
     if opt == '-h':
-      print ('test.py -n <name> -f <filename> -s <size> \n-n <name> (optional): Person\'s name, in title case \n-f <filename> (optional): csv filename without extension, placed in the names folder\n-s <size> (required): size of paper - can be A4,A5 or A3')
+      print ('test.py -n <name> -f <filename> -s <size> -c <complexity>')
       sys.exit()
     elif opt in ("-s"):
       paper_size = arg.upper()
@@ -26,26 +26,27 @@ def main():
       file_name = arg
     elif opt in ("-n"):
       names = [arg]
-    
+    elif opt in ("-c"):
+      complexity = int(arg)
+
   if len(names)>0:
     file_name = names[0]
-    draw_outlined_tartan(names,paper_size,file_name)
+    make_outlined_drawing(names,paper_size,complexity,file_name)
   elif len(file_name)>0:
     with open(f'names/{file_name}.csv') as csv_file:
       csv_reader = csv.reader(csv_file, delimiter=',')
       [names.append(row[0]) for row in csv_reader]
-      draw_outlined_tartan(names,paper_size,file_name)
+      make_outlined_drawing(names,paper_size,complexity,file_name)
   else:
     print ('no names provided')
     sys.exit()
       
 
-def draw_outlined_tartan(names,paper_size,file_name):
+def make_outlined_drawing(names,paper_size,complexity,file_name):
   db = drawBotDrawingTools.DrawBotDrawingTool()
   db.newDrawing()
   for (name) in names:
-    draw_tartan_func = globals()[f'draw_outlined_tartan_{paper_size}']
-    draw_tartan_func(db,name)
+    draw_outlined_tartan(db,name,complexity,outlined_args[paper_size])
   db.endDrawing()
   path = f'./outputs/{to_snake_case(file_name)}_{paper_size}.pdf'
   db.saveImage(path)

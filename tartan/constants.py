@@ -12,44 +12,37 @@ colour_key_gap = 8
 key_height = 6 * fontSize
 first_lines_max_width = 100
 
-#A3
+# Colour in sheets
 
-margin_A3 = 200
-
-canvas_width_A3 = 2970 - margin_A3 * 2
-canvas_height_A3 = 4200 - margin_A3 * 2
-
-fontSize_A3 = 120
-title_offset_A3 = 40
-y_tartan_offset_A3 = canvas_height_A3 - canvas_width_A3
-label_gap_A3 = 10
-colour_signifier_width_A3 = 100
-y_tartan_offset_A3_Key = y_tartan_offset_A3 - fontSize_A3
-
-#A4
-
-margin_A4 = 150
-
-canvas_width_A4 = 2100 - margin_A4 * 2
-canvas_height_A4 = 2970 - margin_A4 * 2
-
-fontSize_A4 = 88
-title_offset_A4 = 20
-y_tartan_offset_A4 = canvas_height_A4 - canvas_width_A4
-label_gap_A4 = 8
-colour_signifier_width_A4 = 75
-y_tartan_offset_A4_Key = y_tartan_offset_A4 - fontSize_A4
-
-#A5
-
-margin_A5 = 150
-
-canvas_width_A5 = 1485 - margin_A5 * 2
-canvas_height_A5 = 2100 - margin_A5 * 2
-
-fontSize_A5 = 64
-title_offset_A5 = 0
-y_tartan_offset_A5 = canvas_height_A5 - canvas_width_A5
-label_gap_A5 = 6
-colour_signifier_width_A5 = 50
-y_tartan_offset_A5_Key = y_tartan_offset_A5 - fontSize_A5
+outlined_args = {
+  "A5": 
+  {
+    "margin": 150, 
+    "raw_canvas_width": 1485, 
+    "raw_canvas_height": 2100,
+    "font_size": 64,
+    "title_offset": 0,
+    "label_gap": 6,
+    "colour_signifier_width": 50
+  },
+  "A4": 
+  {
+    "margin": 150, 
+    "raw_canvas_width": 2100, 
+    "raw_canvas_height": 2970,
+    "font_size": 88,
+    "title_offset": 20,
+    "label_gap": 8,
+    "colour_signifier_width": 75
+  },
+  "A3": 
+  {
+    "margin": 200, 
+    "raw_canvas_width": 2970, 
+    "raw_canvas_height": 4200,
+    "font_size": 120,
+    "title_offset": 40,
+    "label_gap": 10,
+    "colour_signifier_width": 100
+  }
+}
