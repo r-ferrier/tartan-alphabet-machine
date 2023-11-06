@@ -2,7 +2,7 @@ from tartan.helpers import get_unique_colors, normalize_width
 from unidecode import unidecode
 
 def get_characters_for_width(drawbot, name):
-  unique_name = unidecode(name.lower().replace(' ',''))
+  unique_name = name.lower().replace(' ','')
   new_widths = {}
   for x in unique_name:
     new_widths[get_character_width(x,drawbot)] = []

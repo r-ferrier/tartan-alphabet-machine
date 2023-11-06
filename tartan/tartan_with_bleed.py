@@ -138,8 +138,8 @@ def draw_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name_info):
 
   name_for_colors = formatted_name[2] if len(formatted_name) > 2 else formatted_name[1]
 
-  first_name_as_stripes = [{'color': globals()[name_info['colors']](name_for_colors)[(ord(x)-97) % len(globals()[name_info['colors']](name_for_colors))], 'width': widths[(ord(x)-97) % len(widths)]} for x in formatted_name[0]]  
-  second_name_as_stripes = [{'color': globals()[name_info['colors']](name_for_colors)[(ord(x)-97) % len(globals()[name_info['colors']](name_for_colors))], 'width': widths[(ord(x)-97) % len(widths)]} for x in formatted_name[1]]  
+  first_name_as_stripes = [{'color': globals()[name_info['colors']](name_for_colors)[(ord(x)) % len(globals()[name_info['colors']](name_for_colors))], 'width': widths[(ord(x)) % len(widths)]} for x in formatted_name[0]]  
+  second_name_as_stripes = [{'color': globals()[name_info['colors']](name_for_colors)[(ord(x)) % len(globals()[name_info['colors']](name_for_colors))], 'width': widths[(ord(x)) % len(widths)]} for x in formatted_name[1]]  
   
   first_name_width = functools.reduce(lambda a, b: a + b, [x['width'] for x in first_name_as_stripes])
   second_name_width = functools.reduce(lambda a, b: a + b, [x['width'] for x in second_name_as_stripes])

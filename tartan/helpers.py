@@ -1,8 +1,9 @@
 from tartan.constants import first_lines_max_width
 import re
+import string
 
-def name_without_spaces(name):
-  return name.replace(" ", "")
+def name_without_punctuation(name):
+  return name.translate(str.maketrans('', '', string.punctuation))
 
 def get_unique_colors(colors):
     new_colors = []
