@@ -1,6 +1,5 @@
 This code generates a DIY tartan pattern based on a string input.
-You can read more about this project here: https://www.half-year-studio.com/tartan-alphabet-machine
-
+You can read more about this project here: https://www.half-year-studio.com/diy-tartan
 ## How to run
 
 Activate virtual environment:
