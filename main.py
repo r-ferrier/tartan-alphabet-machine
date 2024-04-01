@@ -12,13 +12,14 @@ def main():
   paper_size = 'A4'
   names = []
   complexity = 1
+  with_colour = False
 
   argv = sys.argv[1:] 
-  opts, args = getopt.getopt(argv,"hn:f:s:c:")
+  opts, args = getopt.getopt(argv,"hn:f:s:c:b")
 
   for opt, arg in opts:
     if opt == '-h':
-      print ('test.py -n <name> -f <filename> -s <size> -c <complexity>')
+      print ('test.py -n <name> -f <filename> -s <size> -c <complexity>  -b <background>')
       sys.exit()
     elif opt in ("-s"):
       paper_size = arg.upper()
@@ -28,6 +29,8 @@ def main():
       names = [arg]
     elif opt in ("-c"):
       complexity = int(arg)
+    elif opt in ("-b"):
+      with_colour = True
 
   if len(list(set(names[0]))) < 3:
     print('\x1b[0;33;40m'+f'Not enough unique characters to create a tartan for this name'+'\x1b[0m')
@@ -37,22 +40,32 @@ def main():
 
   if len(names)>0:
     file_name = names[0]
-    make_outlined_drawing(names,paper_size,complexity,file_name)
+    make_outlined_drawing(names,paper_size,complexity,file_name,with_colour)
   elif len(file_name)>0:
     with open(f'names/{file_name}.csv') as csv_file:
       csv_reader = csv.reader(csv_file, delimiter=',')
       [names.append(row[0]) for row in csv_reader]
-      make_outlined_drawing(names,paper_size,complexity,file_name)
+      make_outlined_drawing(names,paper_size,complexity,file_name,with_colour)
   else:
     print ('no names provided')
     sys.exit()
       
 
-def make_outlined_drawing(names,paper_size,complexity,file_name):
+def make_outlined_drawing(names,paper_size,complexity,file_name,with_colour):
   db = drawBotDrawingTools.DrawBotDrawingTool()
   db.newDrawing()
   for (name) in names:
-    draw_outlined_tartan(db,name,complexity,outlined_args[paper_size])
+    args = outlined_args[paper_size]
+    canvas_width = args["raw_canvas_width"] - args["margin"] * 2
+    canvas_height = args["raw_canvas_height"] - args["margin"] * 2
+    args.update({
+      "canvas_height": canvas_height,
+      "canvas_width": canvas_width,
+      "with_colour": with_colour,
+      "y_tartan_offset": canvas_height - canvas_width})
+    
+    draw_outlined_tartan(db,name,complexity,args)
+
   db.endDrawing()
   path = f'./outputs/{to_snake_case(file_name)}_{paper_size}_C{complexity}.pdf'
   db.saveImage(path)

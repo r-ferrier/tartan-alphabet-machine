@@ -2,7 +2,9 @@ import functools
 from drawBot import *
 from tartan.colors import ensure_3_colors, outlined_colors
 from tartan.tartan_info.letters_key import draw_letters_key
+from tartan.coloured_stripes import draw_coloured_stripes
 from tartan.helpers import name_without_punctuation, get_unique_colors
+from tartan.colors import abc_colors
 
 def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, complexity, args):
   
@@ -51,9 +53,9 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, 
     x_margin_70_pct = (args["margin"] - (args["label_gap"]*3))
     x_margin_60_pct = (args["margin"] - (args["label_gap"]*4))
     
-    y_margin_80_pct = (args["margin"] - (args["label_gap"]*2)) + y_tartan_offset
-    y_margin_70_pct = (args["margin"] - (args["label_gap"]*3)) + y_tartan_offset
-    y_margin_60_pct = (args["margin"] - (args["label_gap"]*4)) + y_tartan_offset
+    y_margin_80_pct = (args["margin"] - (args["label_gap"]*2)) + args["y_tartan_offset"]
+    y_margin_70_pct = (args["margin"] - (args["label_gap"]*3)) + args["y_tartan_offset"]
+    y_margin_60_pct = (args["margin"] - (args["label_gap"]*4)) + args["y_tartan_offset"]
 
     drawbot.line((x1, y_margin_80_pct),(x2,y_margin_80_pct))
     drawbot.line((x_margin_80_pct, y1),(x_margin_80_pct, y2))
@@ -86,13 +88,13 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, 
       width = character['width']
 
       x1 = args["margin"] + (width_so_far - width)
-      y1 = args["margin"] + y_tartan_offset
+      y1 = args["margin"] + args["y_tartan_offset"]
       
       x2 = args["margin"]
-      y2 = args["margin"] + (width_so_far - width) + y_tartan_offset
+      y2 = args["margin"] + (width_so_far - width) + args["y_tartan_offset"]
 
-      drawbot.rect(x1,y1,width,canvas_width)
-      drawbot.rect(x2,y2,canvas_width,width)
+      drawbot.rect(x1,y1,width,args["canvas_width"])
+      drawbot.rect(x2,y2,args["canvas_width"],width)
 
       draw_key_lines(
         x1 + (args["label_gap"] / 2),
@@ -106,16 +108,12 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, 
   def draw_name(name):
     drawbot.strokeWidth(0)
     drawbot.fill(0,0,0,1)
-    drawbot.text(name,(args["margin"],(y_tartan_offset - args["title_offset"])))
+    drawbot.text(name,(args["margin"],(args["y_tartan_offset"] - args["title_offset"])))
     drawbot.strokeWidth(1)
 
   # main body of method ----------------------------------------------
   
-  canvas_width = args["raw_canvas_width"] - args["margin"] * 2
-  canvas_height = args["raw_canvas_height"] - args["margin"] * 2
-  y_tartan_offset = canvas_height - canvas_width
-
-  drawbot.newPage(canvas_width + args["margin"] * 2, canvas_height + args["margin"] * 2)
+  drawbot.newPage(args["canvas_width"] + args["margin"] * 2, args["canvas_height"] + args["margin"] * 2)
   fontName = drawbot.installFont('./assets/CormorantGaramond-Light.ttf')
   drawbot.font(fontName, args["font_size"])
   drawbot.strokeWidth(1)
@@ -128,7 +126,7 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, 
   name_as_stripes = [
     {
       'color': name_with_3_colors[index],
-      'width': name_widths[index] * ((canvas_width / complexity) / name_width),
+      'width': name_widths[index] * ((args["canvas_width"] / complexity) / name_width),
       'letters': [x],
       'is_end_of_name': False
     } for index, x in enumerate(name_for_tartan)
@@ -136,7 +134,10 @@ def draw_outlined_tartan(drawbot: drawBotDrawingTools.DrawBotDrawingTool, name, 
 
 
   names_for_square = get_names_for_square(complexity,name_as_stripes)
+  name_colors = abc_colors(name.lower())
 
   draw_square(names_for_square)
   draw_name(name)
-  draw_letters_key(drawbot, name_as_stripes, name_for_tartan, args)
+  draw_letters_key(drawbot, name_as_stripes, name_for_tartan, name_colors, args)
+  if(args["with_colour"]):
+    draw_coloured_stripes(drawbot,names_for_square,name_colors,args)

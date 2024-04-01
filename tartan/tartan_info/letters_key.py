@@ -1,5 +1,4 @@
 from tartan.helpers import get_unique_colors, normalize_width
-from unidecode import unidecode
 
 def get_characters_for_width(drawbot, name):
   unique_name = name.lower().replace(' ','')
@@ -86,7 +85,6 @@ def get_number_of_rows(char_list):
 
 
 def draw_colour_grid(drawbot, unique_colors, x, height, font_size, y_tartan_offset_key, label_gap):
-  
   for i in range(len(unique_colors)+1):
     horizontal_y = y_tartan_offset_key - font_size - ((height/(len(unique_colors))) * i)
     vertical_x = x + ((height/(len(unique_colors))) * i)
@@ -95,14 +93,22 @@ def draw_colour_grid(drawbot, unique_colors, x, height, font_size, y_tartan_offs
     if i < len(unique_colors):
       draw_horizontal_lines(vertical_x+label_gap,vertical_x+(height/(len(unique_colors)))-label_gap,y_tartan_offset_key - font_size - height-label_gap,drawbot,i+1,label_gap)
       draw_vertical_lines(x - label_gap,horizontal_y-label_gap,horizontal_y-(height/(len(unique_colors)))+label_gap,drawbot,i+1,label_gap)
-  
 
-def draw_letters_key(drawbot, stripes, name, args):
-  
-  canvas_width = args["raw_canvas_width"] - args["margin"] * 2
-  canvas_height = args["raw_canvas_height"] - args["margin"] * 2
-  y_tartan_offset = canvas_height - canvas_width
-  y_tartan_offset_key = y_tartan_offset - args["font_size"]
+def draw_filled_colour_grid(drawbot, unique_colors, x, height, font_size, y_tartan_offset_key, colours):
+  for i in range(len(unique_colors)):
+    drawbot.fill(*colours[unique_colors[i]])
+    drawbot.blendMode("multiply")
+
+    horizontal_y = y_tartan_offset_key - font_size - ((height/(len(unique_colors))) * (len(unique_colors) - (i)))
+    vertical_x = x + ((height/(len(unique_colors))) * i)
+
+    drawbot.rect(x, horizontal_y, height, (height/(len(unique_colors))))
+    drawbot.rect(vertical_x, y_tartan_offset_key - font_size - height,(height/(len(unique_colors))),height)
+
+    drawbot.fill(0,0,0,1)
+
+def draw_letters_key(drawbot, stripes, name, colours, args):
+  y_tartan_offset_key = args["y_tartan_offset"] - args["font_size"]
 
   character_widths = get_characters_for_width(drawbot,name)
   number_of_rows = get_number_of_rows(character_widths.values())
@@ -117,7 +123,7 @@ def draw_letters_key(drawbot, stripes, name, args):
   
   text_x_position = args["margin"] + normalize_width(get_largest_width(character_widths.keys()),get_largest_width(character_widths.keys())) + (args["label_gap"] * 4)
   colour_x_position = text_x_position + largest_text_width + (args["label_gap"] * 4)
-  colour_width = canvas_width - (colour_x_position + ((number_of_rows * font_size) - font_size) + ((args["colour_signifier_width"] * 6)) - (args["label_gap"] * 3) - 3 )
+  colour_width = args["canvas_width"] - (colour_x_position + ((number_of_rows * font_size) - font_size) + ((args["colour_signifier_width"] * 6)) - (args["label_gap"] * 3) - 3 )
   colour_x_end_position = colour_x_position + colour_width + (args["label_gap"] * 6)
   
   unique_colors = get_unique_colors([x['color'] for x in stripes])
@@ -133,6 +139,17 @@ def draw_letters_key(drawbot, stripes, name, args):
     y_tartan_offset_key, 
     args["label_gap"]
   )
+
+  if args["with_colour"]:
+    draw_filled_colour_grid(
+      drawbot,
+      unique_colors,
+      colour_x_end_position + args["colour_signifier_width"] * 6 + args["colour_signifier_width"],
+      (number_of_rows * font_size) - font_size,
+      font_size,
+      y_tartan_offset_key,
+      colours,
+    )
   
   for width, characters in character_widths.items():
     normalized_width = normalize_width(float(width),get_largest_width(character_widths.keys()))

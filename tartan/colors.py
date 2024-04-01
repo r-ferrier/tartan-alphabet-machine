@@ -23,6 +23,27 @@ park_colors = {
   'copper': [	0.89, 0.51, 0.31],
 }
 
+def abc_colors(name):
+  result = {"a": None, "b": None, "c": None  }
+  
+  middle_colors = [colors['yellow'], colors['sunshine_yellow'], colors['purple']]
+  contrast_colors = [colors['white'], colors['really_pale_pink'], colors['really_pale_blue'], colors['dark_blue'], colors['dark_green'], colors['hot_pink'],]
+
+  pale_colors_index = (ord(name[0])) % len(contrast_colors)
+  result["a"] = contrast_colors.pop(pale_colors_index)
+  # if one pale colour picked, remove the other one so two can't be picked
+  if pale_colors_index < 3:
+    contrast_colors.pop(0)
+    contrast_colors.pop(0)
+
+  middle_colors_index = (ord(name[2])) % len(middle_colors)
+  result["b"] = middle_colors.pop(middle_colors_index)
+
+  dark_colors_index = (ord(name[1])) % len(contrast_colors)
+  result["c"] = contrast_colors.pop(dark_colors_index)
+    
+  return result
+
 def family_colors_1(name):
   result = []
   
